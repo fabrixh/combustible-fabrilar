@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia de Combustible · Fabrilar 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3a;
+    --accent: #f5c842;
+    --accent2: #ff6b35;
+    --accent3: #4ecdc4;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --text: #e8e8f0;
+    --muted: #6b6b88;
+    --btc: #f7931a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,200,66,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,200,66,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 88px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 4px;
+    min-width: 200px;
+    text-align: right;
+  }
+
+  .header-badge .label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+
+  .header-badge .value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--green);
+    letter-spacing: 0.05em;
+  }
+
+  .header-badge .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* SECCIÓN LABEL */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .kpi-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .kpi-card.gold::after { background: var(--accent); }
+  .kpi-card.orange::after { background: var(--accent2); }
+  .kpi-card.teal::after { background: var(--accent3); }
+  .kpi-card.green::after { background: var(--green); }
+  .kpi-card.btc::after { background: var(--btc); }
+
+  .kpi-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .kpi-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+
+  .kpi-card.gold .kpi-value { color: var(--accent); }
+  .kpi-card.orange .kpi-value { color: var(--accent2); }
+  .kpi-card.teal .kpi-value { color: var(--accent3); }
+  .kpi-card.green .kpi-value { color: var(--green); }
+  .kpi-card.btc .kpi-value { color: var(--btc); }
+
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* PRECIO COMPARATIVO */
+  .price-compare {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 32px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .price-box {
+    text-align: center;
+  }
+
+  .price-box .plabel {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+
+  .price-box .pvalue {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+
+  .price-box.bad .pvalue { color: var(--red); }
+  .price-box.good .pvalue { color: var(--green); }
+
+  .price-box .psub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .vs-block {
+    text-align: center;
+  }
+
+  .vs-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .savings-pill {
+    background: var(--green);
+    color: #000;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    display: block;
+  }
+
+  /* TABLA DE RESULTADOS */
+  .results-section {
+    margin-bottom: 48px;
+  }
+
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .results-table th {
+    background: var(--surface2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    vertical-align: middle;
+  }
+
+  .results-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .results-table tr:hover td {
+    background: rgba(245,200,66,0.03);
+  }
+
+  .mes-name {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .warning-row td {
+    opacity: 0.75;
+  }
+
+  .warning-tag {
+    display: inline-block;
+    background: rgba(231,76,60,0.15);
+    border: 1px solid rgba(231,76,60,0.3);
+    color: var(--red);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .price-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  /* BARRA CHART */
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 120px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+
+  .bar-fill.warn {
+    background: var(--red);
+  }
+
+  .bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* TOTALS ROW */
+  .total-row td {
+    background: var(--surface2);
+    font-weight: 700;
+    border-top: 1px solid var(--border);
+  }
+
+  .total-row .mes-name {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* COMO FUNCIONA */
+  .how-section {
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .how-section { grid-template-columns: 1fr; }
+    .price-compare { grid-template-columns: 1fr; }
+    .vs-block { order: -1; }
+  }
+
+  .how-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .how-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .how-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .how-card ul li {
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .how-card ul li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* STOCK */
+  .stock-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .stock-section { grid-template-columns: 1fr; }
+  }
+
+  .stock-left h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.05em;
+    color: var(--accent3);
+    margin-bottom: 12px;
+  }
+
+  .stock-left p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .stock-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .stock-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+
+  .stock-stat-row .slabel { color: var(--muted); }
+  .stock-stat-row .svalue {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .bidones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .bidon {
+    aspect-ratio: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 22px;
+    transition: border-color 0.2s;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .bidon:hover { border-color: var(--accent3); }
+
+  .bidon span {
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+  }
+
+  .fifo-tag {
+    display: inline-block;
+    background: rgba(78,205,196,0.15);
+    border: 1px solid rgba(78,205,196,0.3);
+    color: var(--accent3);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  /* IDEA DE FONDO */
+  .idea-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 36px 32px;
+    margin-bottom: 48px;
+  }
+
+  .idea-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .idea-quote span { color: var(--accent); }
+
+  .idea-body {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* ADVERTENCIA */
+  .warning-section {
+    background: rgba(231,76,60,0.05);
+    border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .warning-section h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--red);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .warning-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .warning-section ul li {
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .warning-section ul li::before {
+    content: '⚠';
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+
+  .footer-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ANIMACIONES */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .kpi-card { animation: fadeIn 0.5s ease both; }
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+  .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+  .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+  .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+
+  .bidon:nth-child(1) { animation-delay: 0.1s; }
+  .bidon:nth-child(2) { animation-delay: 0.15s; }
+  .bidon:nth-child(3) { animation-delay: 0.2s; }
+  .bidon:nth-child(4) { animation-delay: 0.25s; }
+  .bidon:nth-child(5) { animation-delay: 0.3s; }
+  .bidon:nth-child(6) { animation-delay: 0.35s; }
+  .bidon:nth-child(7) { animation-delay: 0.4s; }
+  .bidon:nth-child(8) { animation-delay: 0.45s; }
+
+  .tag-btc {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(247,147,26,0.12);
+    border: 1px solid rgba(247,147,26,0.25);
+    color: var(--btc);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-left: 8px;
+  }
+
+  /* CHART */
+  .chart-section {
+    margin-bottom: 48px;
+  }
+
+  .chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 32px 24px 24px;
+    position: relative;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .chart-svg-wrap {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .chart-tooltip {
+    position: absolute;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+    min-width: 160px;
+  }
+
+  .chart-tooltip.visible { opacity: 1; }
+
+  .chart-tooltip .tt-mes {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .chart-tooltip .tt-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 3px;
+    color: var(--text);
+    font-size: 12px;
+  }
+
+  .chart-tooltip .tt-label { color: var(--muted); }
+
+  .ahorro-bar-section {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    align-items: end;
+  }
+
+  .ahorro-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ahorro-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .ahorro-col-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .ahorro-bar-track {
+    width: 100%;
+    height: 80px;
+    background: var(--surface2);
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .ahorro-bar-fill {
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="eyebrow">Fabrilar · Educación Financiera · 2026</div>
+      <h1>ESTRATEGIA<br><span>COMBUSTIBLE</span></h1>
+    </div>
+    <div class="header-badge">
+      <div class="label">Ahorro acumulado</div>
+      <div class="value">53%</div>
+      <div class="sub">Precio full vs. estrategia</div>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <div class="section-label">Indicadores clave</div>
+  <div class="kpi-grid">
+    <div class="kpi-card gold">
+      <div class="kpi-label">Precio c/ estrategia</div>
+      <div class="kpi-value">$949</div>
+      <div class="kpi-sub">por litro (ene–abr promedio real)</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Precio sin estrategia</div>
+      <div class="kpi-value">$2.076</div>
+      <div class="kpi-sub">precio de mercado actual</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Litros cargados</div>
+      <div class="kpi-value">114,44L</div>
+      <div class="kpi-sub">total acumulado 2026</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">Litros "gratis"</div>
+      <div class="kpi-value">~54L</div>
+      <div class="kpi-sub">equivalente al ahorro</div>
+    </div>
+    <div class="kpi-card btc">
+      <div class="kpi-label">Cashback elegido</div>
+      <div class="kpi-value">BTC</div>
+      <div class="kpi-sub">Bitcoin — modo agresivo</div>
+    </div>
+  </div>
+
+  <!-- COMPARATIVO DE PRECIO -->
+  <div class="section-label">Comparación de precio por litro</div>
+  <div class="price-compare">
+    <div class="price-box bad">
+      <div class="plabel">Sin estrategia</div>
+      <div class="pvalue">$2.076</div>
+      <div class="psub">precio de surtidor</div>
+    </div>
+    <div class="vs-block">
+      <span class="vs-text">VS</span>
+      <span class="savings-pill">-53%</span>
+    </div>
+    <div class="price-box good">
+      <div class="plabel">Con estrategia</div>
+      <div class="pvalue">$949</div>
+      <div class="psub">precio efectivo (ene–abr)</div>
+    </div>
+  </div>
+
+  <!-- TABLA RESULTADOS -->
+  <div class="results-section">
+    <div class="section-label">Resultados mes a mes</div>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Litros</th>
+          <th>Pagado</th>
+          <th>$/L efectivo</th>
+          <th>Volumen relativo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mes-name">Enero</td>
+          <td class="mono">19,00 L</td>
+          <td class="price-cell">$20.355</td>
+          <td class="price-cell" style="color:var(--green)">$1.071</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:64%"></div></div>
+              <span class="bar-label">19L</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="mes-name">Febrero</td>
+          <td class="mono">29,51 L</td>
+          <td class="price-cell">$23.975</td>
+          <td class="price-cell" style="color:var(--green)">$812</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+              <span class="bar-label">29,5L</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="mes-name">Marzo</td>
+          <td class="mono">20,82 L</td>
+          <td class="price-cell">$20.700</td>
+          <td class="price-cell" style="color:var(--green)">$994</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:71%"></div></div>
+              <span class="bar-label">20,8L</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="mes-name">Abril</td>
+          <td class="mono">20,37 L</td>
+          <td class="price-cell">$20.073</td>
+          <td class="price-cell" style="color:var(--green)">$986</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:69%"></div></div>
+              <span class="bar-label">20,4L</span>
+            </div>
+          </td>
+        </tr>
+        <tr class="warning-row">
+          <td class="mes-name">Mayo <span class="warning-tag">sin promo</span></td>
+          <td class="mono">24,74 L</td>
+          <td class="price-cell">$40.635</td>
+          <td class="price-cell" style="color:var(--red)">$1.642</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill warn" style="width:84%"></div></div>
+              <span class="bar-label">24,7L</span>
+            </div>
+          </td>
+        </tr>
+        <tr class="total-row">
+          <td class="mes-name">TOTAL 2026</td>
+          <td class="mono" style="color:var(--accent)">114,44 L</td>
+          <td class="price-cell" style="color:var(--accent)">$125.738</td>
+          <td class="price-cell" style="color:var(--accent)">$1.099 prom.</td>
+          <td style="color:var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace;">$949/L sin mayo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GRÁFICO EVOLUCIÓN DE PRECIO -->
+  <div class="chart-section">
+    <div class="section-label">Evolución del precio por litro — con y sin estrategia</div>
+    <div class="chart-container" id="chartWrap">
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#e74c3c"></div>
+          Precio de mercado (sin estrategia)
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#2ecc71"></div>
+          Tu precio efectivo (con estrategia)
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f7931a; opacity:0.7"></div>
+          Mayo (sin promo — excepción)
+        </div>
+      </div>
+
+      <div class="chart-tooltip" id="tooltip"></div>
+      <svg id="lineChart" class="chart-svg-wrap" viewBox="0 0 900 300" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;overflow:visible"></svg>
+
+      <div style="margin-top:32px">
+        <div class="section-label" style="margin-bottom:16px">Ahorro por mes vs. precio de mercado</div>
+        <div class="ahorro-bar-section" id="ahorroGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CÓMO FUNCIONA -->
+  <div class="section-label">¿Cómo funciona la estrategia?</div>
+  <div class="how-section">
+    <div class="how-card">
+      <h3>⚡ Herramientas</h3>
+      <ul>
+        <li>App YPF vinculada con tarjeta <strong>Ripio</strong></li>
+        <li><strong>50% de cashback</strong> (tope $20.000/mes en YPF)</li>
+        <li>$20.000 adicionales en <strong>Shell</strong></li>
+        <li>Cashback en pesos, USD o <strong>BTC</strong> <span class="tag-btc">₿ Bitcoin</span></li>
+      </ul>
+    </div>
+    <div class="how-card">
+      <h3>🕐 Descuentos extra</h3>
+      <ul>
+        <li><strong>6% de descuento</strong> cargando entre las 0 y las 6 AM</li>
+        <li><strong>3% extra</strong> usando autodespacho</li>
+        <li>YPF preferida por mejor <strong>precio base</strong> respecto a Shell</li>
+        <li>Acumulación de beneficios sobre cada carga</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STOCK -->
+  <div class="section-label">Reserva de combustible</div>
+  <div class="stock-section">
+    <div class="stock-left">
+      <h3>⛽ Stock Actual</h3>
+      <p>El stockeo es parte de la estrategia: cargar cuando el precio es bajo y la promo está activa, para consumir ese stock cuando no lo está.</p>
+      <div class="stock-stat">
+        <div class="stock-stat-row">
+          <span class="slabel">Litros almacenados</span>
+          <span class="svalue">35 L</span>
+        </div>
+        <div class="stock-stat-row">
+          <span class="slabel">Bidones</span>
+          <span class="svalue">8 bidones</span>
+        </div>
+        <div class="stock-stat-row">
+          <span class="slabel">Autonomía estimada</span>
+          <span class="svalue">2–3 meses</span>
+        </div>
+        <div class="stock-stat-row">
+          <span class="slabel">Método de rotación</span>
+          <span class="svalue">FIFO</span>
+        </div>
+      </div>
+      <div class="fifo-tag">FIRST IN, FIRST OUT</div>
+    </div>
+    <div>
+      <div class="bidones">
+        <div class="bidon">🛢️<span>B-01</span></div>
+        <div class="bidon">🛢️<span>B-02</span></div>
+        <div class="bidon">🛢️<span>B-03</span></div>
+        <div class="bidon">🛢️<span>B-04</span></div>
+        <div class="bidon">🛢️<span>B-05</span></div>
+        <div class="bidon">🛢️<span>B-06</span></div>
+        <div class="bidon">🛢️<span>B-07</span></div>
+        <div class="bidon">🛢️<span>B-08</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXTO DE MERCADO -->
+  <div class="section-label">Contexto de mercado</div>
+  <div class="how-card" style="margin-bottom:48px">
+    <h3>📈 Evolución del precio</h3>
+    <ul>
+      <li>A principio de año el litro cotizaba <strong>~$1.680</strong></li>
+      <li>Hoy el precio ronda <strong>~$2.076</strong> — una suba del <strong>+23,6%</strong> en el año</li>
+      <li>En un momento se evaluó vender parte del stock; se decidió <strong>mantenerlo como cobertura</strong></li>
+      <li>El combustible almacenado actúa como <strong>hedge inflacionario</strong> sobre un gasto obligatorio</li>
+    </ul>
+  </div>
+
+  <!-- IDEA DE FONDO -->
+  <div class="idea-section">
+    <div class="idea-quote">No controlo el <span>precio</span><br>del combustible…<br>pero sí <span>cuándo y cómo</span><br>lo pago.</div>
+    <p class="idea-body">Esta es la lección financiera central: no todos los gastos son controlables, pero casi siempre existe un margen para optimizar la forma en que los ejecutamos. El arbitraje de condiciones (horario, método de pago, stockeo) transforma un gasto obligatorio en una herramienta de ahorro activo.</p>
+  </div>
+
+  <!-- ADVERTENCIAS -->
+  <div class="warning-section">
+    <h3>⚠ Limitaciones y riesgos</h3>
+    <ul>
+      <li>Los topes de cashback pueden modificarse o eliminarse en cualquier momento</li>
+      <li>La nafta almacenada se degrada en 3–6 meses — la rotación FIFO es obligatoria</li>
+      <li>El resultado depende de mantener la disciplina horaria (0–6 AM) y el autodespacho</li>
+      <li>Una carga sin promo (como mayo) impacta notablemente en el promedio acumulado</li>
+      <li>Esto no es magia: es <strong>sistema, consistencia y atención al detalle</strong></li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">FABRILAR</div>
+    <div class="footer-sub">Educación Financiera · La Rioja · 2026</div>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
+  const precioMercado = [1700, 1780, 1900, 1960, 2076]; // estimado progresivo
+  const precioEfectivo = [1071, 812, 994, 986, 1642];
+  const esExcepcion = [false, false, false, false, true];
+
+  // ------ LINE CHART SVG ------
+  const svg = document.getElementById('lineChart');
+  const W = 900, H = 300;
+  const padL = 70, padR = 30, padT = 20, padB = 50;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  const allVals = [...precioMercado, ...precioEfectivo];
+  const minVal = Math.min(...allVals) - 100;
+  const maxVal = Math.max(...allVals) + 100;
+
+  function xPos(i) { return padL + (i / (meses.length - 1)) * chartW; }
+  function yPos(v) { return padT + (1 - (v - minVal) / (maxVal - minVal)) * chartH; }
+
+  function makePath(data, color, dashed) {
+    let d = data.map((v, i) => `${i === 0 ? 'M' : 'L'}${xPos(i).toFixed(1)},${yPos(v).toFixed(1)}`).join(' ');
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-width', '2.5');
+    path.setAttribute('stroke-linecap','round');
+    path.setAttribute('stroke-linejoin','round');
+    if (dashed) path.setAttribute('stroke-dasharray','6,4');
+    // animate
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    path.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)';
+    svg.appendChild(path);
+    setTimeout(() => { path.style.strokeDashoffset = '0'; }, 100);
+    return path;
+  }
+
+  // Grid lines Y
+  const ns = 'http://www.w3.org/2000/svg';
+  const gridCount = 5;
+  for (let i = 0; i <= gridCount; i++) {
+    const v = minVal + (maxVal - minVal) * (i / gridCount);
+    const y = yPos(v).toFixed(1);
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', padL); line.setAttribute('x2', W - padR);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', '#2a2a3a'); line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('x', padL - 8); label.setAttribute('y', parseFloat(y) + 4);
+    label.setAttribute('text-anchor', 'end');
+    label.setAttribute('fill', '#6b6b88');
+    label.setAttribute('font-size', '11');
+    label.setAttribute('font-family', 'JetBrains Mono, monospace');
+    label.textContent = '$' + Math.round(v).toLocaleString('es-AR');
+    svg.appendChild(label);
+  }
+
+  // Fill area between lines
+  const areaPoints = [
+    ...precioMercado.map((v,i) => `${xPos(i).toFixed(1)},${yPos(v).toFixed(1)}`),
+    ...[...precioEfectivo].reverse().map((v,i) => `${xPos(meses.length-1-i).toFixed(1)},${yPos(v).toFixed(1)}`)
+  ].join(' ');
+  const area = document.createElementNS(ns,'polygon');
+  area.setAttribute('points', areaPoints);
+  area.setAttribute('fill', 'rgba(46,204,113,0.07)');
+  svg.appendChild(area);
+
+  // Lines
+  makePath(precioMercado, '#e74c3c', false);
+  makePath(precioEfectivo, '#2ecc71', false);
+
+  // X labels + dots
+  meses.forEach((mes, i) => {
+    // X label
+    const label = document.createElementNS(ns,'text');
+    label.setAttribute('x', xPos(i));
+    label.setAttribute('y', H - padB + 22);
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('fill','#6b6b88');
+    label.setAttribute('font-size','12');
+    label.setAttribute('font-family','JetBrains Mono, monospace');
+    label.textContent = mes.substring(0,3).toUpperCase();
+    svg.appendChild(label);
+
+    // Vertical guide
+    const guide = document.createElementNS(ns,'line');
+    guide.setAttribute('x1', xPos(i)); guide.setAttribute('x2', xPos(i));
+    guide.setAttribute('y1', padT); guide.setAttribute('y2', H - padB);
+    guide.setAttribute('stroke','#2a2a3a'); guide.setAttribute('stroke-width','1');
+    guide.setAttribute('stroke-dasharray','3,3');
+    svg.appendChild(guide);
+
+    // Dots mercado
+    const dotM = document.createElementNS(ns,'circle');
+    dotM.setAttribute('cx', xPos(i)); dotM.setAttribute('cy', yPos(precioMercado[i]));
+    dotM.setAttribute('r','5'); dotM.setAttribute('fill','#e74c3c');
+    dotM.setAttribute('stroke','#0a0a0f'); dotM.setAttribute('stroke-width','2');
+    svg.appendChild(dotM);
+
+    // Dots efectivo
+    const dotE = document.createElementNS(ns,'circle');
+    dotE.setAttribute('cx', xPos(i)); dotE.setAttribute('cy', yPos(precioEfectivo[i]));
+    dotE.setAttribute('r', esExcepcion[i] ? '6' : '5');
+    dotE.setAttribute('fill', esExcepcion[i] ? '#f7931a' : '#2ecc71');
+    dotE.setAttribute('stroke','#0a0a0f'); dotE.setAttribute('stroke-width','2');
+    svg.appendChild(dotE);
+
+    // Ahorro label on chart
+    const ahorroPct = Math.round((1 - precioEfectivo[i] / precioMercado[i]) * 100);
+    const midY = (yPos(precioMercado[i]) + yPos(precioEfectivo[i])) / 2;
+    if (Math.abs(yPos(precioMercado[i]) - yPos(precioEfectivo[i])) > 20) {
+      const aLabel = document.createElementNS(ns,'text');
+      aLabel.setAttribute('x', xPos(i) + 10);
+      aLabel.setAttribute('y', midY + 4);
+      aLabel.setAttribute('fill', esExcepcion[i] ? '#f7931a' : '#2ecc71');
+      aLabel.setAttribute('font-size','11');
+      aLabel.setAttribute('font-family','Bebas Neue, sans-serif');
+      aLabel.setAttribute('letter-spacing','1');
+      aLabel.textContent = '-' + ahorroPct + '%';
+      svg.appendChild(aLabel);
+    }
+  });
+
+  // Tooltip hover zones
+  const tooltip = document.getElementById('tooltip');
+  const wrap = document.getElementById('chartWrap');
+  meses.forEach((mes, i) => {
+    const hitzone = document.createElementNS(ns,'rect');
+    const zoneW = chartW / meses.length;
+    hitzone.setAttribute('x', xPos(i) - zoneW/2);
+    hitzone.setAttribute('y', padT);
+    hitzone.setAttribute('width', zoneW);
+    hitzone.setAttribute('height', chartH);
+    hitzone.setAttribute('fill','transparent');
+    hitzone.style.cursor = 'crosshair';
+    svg.appendChild(hitzone);
+
+    hitzone.addEventListener('mouseenter', (e) => {
+      const ahorroPct = Math.round((1 - precioEfectivo[i] / precioMercado[i]) * 100);
+      const ahorroAbs = precioMercado[i] - precioEfectivo[i];
+      tooltip.innerHTML = `
+        <div class="tt-mes">${mes}${esExcepcion[i] ? ' ⚠ sin promo' : ''}</div>
+        <div class="tt-row"><span class="tt-label">Mercado</span><span>$${precioMercado[i].toLocaleString('es-AR')}/L</span></div>
+        <div class="tt-row"><span class="tt-label">Efectivo</span><span style="color:${esExcepcion[i]?'#f7931a':'#2ecc71'}">$${precioEfectivo[i].toLocaleString('es-AR')}/L</span></div>
+        <div class="tt-row"><span class="tt-label">Ahorro</span><span style="color:#2ecc71">$${ahorroAbs.toLocaleString('es-AR')} (${ahorroPct}%)</span></div>
+      `;
+      const rect = wrap.getBoundingClientRect();
+      const svgRect = svg.getBoundingClientRect();
+      const dotX = (xPos(i) / W) * svgRect.width + svgRect.left - rect.left;
+      tooltip.style.left = (dotX + 12) + 'px';
+      tooltip.style.top = '60px';
+      tooltip.classList.add('visible');
+    });
+    hitzone.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+  });
+
+  // ------ BARRAS DE AHORRO ------
+  const grid = document.getElementById('ahorroGrid');
+  meses.forEach((mes, i) => {
+    const ahorroPct = Math.round((1 - precioEfectivo[i] / precioMercado[i]) * 100);
+    const color = esExcepcion[i] ? '#f7931a' : '#2ecc71';
+    const col = document.createElement('div');
+    col.className = 'ahorro-col';
+    col.innerHTML = `
+      <div class="ahorro-col-pct" style="color:${color}">-${ahorroPct}%</div>
+      <div class="ahorro-bar-track">
+        <div class="ahorro-bar-fill" style="height:0%;background:${color}20;border-top:2px solid ${color}" data-target="${ahorroPct}%"></div>
+      </div>
+      <div class="ahorro-col-label">${mes.substring(0,3)}</div>
+    `;
+    grid.appendChild(col);
+  });
+
+  // Animate bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.ahorro-bar-fill').forEach(bar => {
+          bar.style.height = bar.dataset.target;
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(grid);
+})();
+</script>
+
+</body>
+</html>
