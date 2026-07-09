@@ -808,7 +808,7 @@
     </div>
     <div class="header-badge">
       <div class="label">Ahorro acumulado</div>
-      <div class="value">53%</div>
+      <div class="value">49,6%</div>
       <div class="sub">Precio full vs. estrategia</div>
     </div>
   </header>
@@ -818,13 +818,13 @@
   <div class="kpi-grid">
     <div class="kpi-card gold">
       <div class="kpi-label">Precio c/ estrategia</div>
-      <div class="kpi-value">$949</div>
-      <div class="kpi-sub">por litro (ene–abr promedio real)</div>
+      <div class="kpi-value">$1.073</div>
+      <div class="kpi-sub">por litro (ene–jul, promedio real)</div>
     </div>
     <div class="kpi-card orange">
       <div class="kpi-label">Precio sin estrategia</div>
       <div class="kpi-value">$2.076</div>
-      <div class="kpi-sub">precio de mercado actual</div>
+      <div class="kpi-sub">precio de mercado actual (9 jul)</div>
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Litros cargados</div>
@@ -833,8 +833,8 @@
     </div>
     <div class="kpi-card teal">
       <div class="kpi-label">Litros "gratis"</div>
-      <div class="kpi-value">~54L</div>
-      <div class="kpi-sub">equivalente al ahorro</div>
+      <div class="kpi-value">~76L</div>
+      <div class="kpi-sub">equivalente al ahorro total</div>
     </div>
     <div class="kpi-card btc">
       <div class="kpi-label">Cashback elegido</div>
@@ -848,17 +848,17 @@
   <div class="price-compare">
     <div class="price-box bad">
       <div class="plabel">Sin estrategia</div>
-      <div class="pvalue">$2.076</div>
-      <div class="psub">precio de surtidor</div>
+      <div class="pvalue">$2.129</div>
+      <div class="psub">precio de surtidor (9 jul)</div>
     </div>
     <div class="vs-block">
       <span class="vs-text">VS</span>
-      <span class="savings-pill">-53%</span>
+      <span class="savings-pill">-49,6%</span>
     </div>
     <div class="price-box good">
       <div class="plabel">Con estrategia</div>
-      <div class="pvalue">$949</div>
-      <div class="psub">precio efectivo (ene–abr)</div>
+      <div class="pvalue">$1.073</div>
+      <div class="psub">precio efectivo (ene–jul)</div>
     </div>
   </div>
 
@@ -925,7 +925,7 @@
           </td>
         </tr>
         <tr class="warning-row">
-          <td class="mes-name">Mayo <span class="warning-tag">sin promo</span></td>
+          <td class="mes-name">Mayo <span class="warning-tag">promo parcial</span></td>
           <td class="mono">24,74 L</td>
           <td class="price-cell">$40.635</td>
           <td class="price-cell" style="color:var(--red)">$1.642</td>
@@ -965,7 +965,7 @@
           <td class="mono" style="color:var(--accent)">153,62 L</td>
           <td class="price-cell" style="color:var(--accent)">$164.824</td>
           <td class="price-cell" style="color:var(--accent)">$1.073 prom.</td>
-          <td style="color:var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace;">$949/L sin mayo</td>
+          <td style="color:var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace;">49,6% de ahorro</td>
         </tr>
       </tbody>
     </table>
@@ -986,7 +986,7 @@
         </div>
         <div class="legend-item">
           <div class="legend-dot" style="background:#f7931a; opacity:0.7"></div>
-          Mayo (sin promo — excepción)
+          Mayo (promo parcial)
         </div>
       </div>
 
@@ -1069,7 +1069,7 @@
     <h3>📈 Evolución del precio</h3>
     <ul>
       <li>A principio de año el litro cotizaba <strong>~$1.680</strong></li>
-      <li>Hoy el precio ronda <strong>~$2.076</strong> — una suba del <strong>+23,6%</strong> en el año</li>
+      <li>Hoy el precio ronda <strong>$2.129</strong> — una suba del <strong>+26,7%</strong> desde inicio de año</li>
       <li>En un momento se evaluó vender parte del stock; se decidió <strong>mantenerlo como cobertura</strong></li>
       <li>El combustible almacenado actúa como <strong>hedge inflacionario</strong> sobre un gasto obligatorio</li>
     </ul>
@@ -1088,7 +1088,7 @@
       <li>Los topes de cashback pueden modificarse o eliminarse en cualquier momento</li>
       <li>La nafta almacenada se degrada en 3–6 meses — la rotación FIFO es obligatoria</li>
       <li>El resultado depende de mantener la disciplina horaria (0–6 AM) y el autodespacho</li>
-      <li>Una carga sin promo (como mayo) impacta notablemente en el promedio acumulado</li>
+      <li>Mayo tuvo promo parcial — una carga a precio full impactó en el promedio, pero el ahorro mensual fue del 22,9%</li>
       <li>Esto no es magia: es <strong>sistema, consistencia y atención al detalle</strong></li>
     </ul>
   </div>
@@ -1104,7 +1104,7 @@
 <script>
 (function() {
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'];
-  const precioMercado = [1700, 1780, 1900, 1960, 2076, 2100, 2150]; // estimado progresivo
+  const precioMercado = [1700, 1780, 1900, 1960, 2076, 2100, 2129]; // estimado progresivo
   const precioEfectivo = [1071, 812, 994, 986, 1642, 1000, 994];
   const esExcepcion = [false, false, false, false, true, false, false];
 
@@ -1247,7 +1247,7 @@
       const ahorroPct = Math.round((1 - precioEfectivo[i] / precioMercado[i]) * 100);
       const ahorroAbs = precioMercado[i] - precioEfectivo[i];
       tooltip.innerHTML = `
-        <div class="tt-mes">${mes}${esExcepcion[i] ? ' ⚠ sin promo' : ''}</div>
+        <div class="tt-mes">${mes}${esExcepcion[i] ? ' ⚠ promo parcial' : ''}</div>
         <div class="tt-row"><span class="tt-label">Mercado</span><span>$${precioMercado[i].toLocaleString('es-AR')}/L</span></div>
         <div class="tt-row"><span class="tt-label">Efectivo</span><span style="color:${esExcepcion[i]?'#f7931a':'#2ecc71'}">$${precioEfectivo[i].toLocaleString('es-AR')}/L</span></div>
         <div class="tt-row"><span class="tt-label">Ahorro</span><span style="color:#2ecc71">$${ahorroAbs.toLocaleString('es-AR')} (${ahorroPct}%)</span></div>
