@@ -828,7 +828,7 @@
     </div>
     <div class="kpi-card green">
       <div class="kpi-label">Litros cargados</div>
-      <div class="kpi-value">114,44L</div>
+      <div class="kpi-value">153,62L</div>
       <div class="kpi-sub">total acumulado 2026</div>
     </div>
     <div class="kpi-card teal">
@@ -936,11 +936,35 @@
             </div>
           </td>
         </tr>
+        <tr>
+          <td class="mes-name">Junio</td>
+          <td class="mono">20,95 L</td>
+          <td class="price-cell">$20.957</td>
+          <td class="price-cell" style="color:var(--green)">$1.000</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:71%"></div></div>
+              <span class="bar-label">20,9L</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="mes-name">Julio</td>
+          <td class="mono">18,23 L</td>
+          <td class="price-cell">$18.129</td>
+          <td class="price-cell" style="color:var(--green)">$994</td>
+          <td>
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill" style="width:62%"></div></div>
+              <span class="bar-label">18,2L</span>
+            </div>
+          </td>
+        </tr>
         <tr class="total-row">
           <td class="mes-name">TOTAL 2026</td>
-          <td class="mono" style="color:var(--accent)">114,44 L</td>
-          <td class="price-cell" style="color:var(--accent)">$125.738</td>
-          <td class="price-cell" style="color:var(--accent)">$1.099 prom.</td>
+          <td class="mono" style="color:var(--accent)">153,62 L</td>
+          <td class="price-cell" style="color:var(--accent)">$164.824</td>
+          <td class="price-cell" style="color:var(--accent)">$1.073 prom.</td>
           <td style="color:var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace;">$949/L sin mayo</td>
         </tr>
       </tbody>
@@ -1079,10 +1103,10 @@
 
 <script>
 (function() {
-  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
-  const precioMercado = [1700, 1780, 1900, 1960, 2076]; // estimado progresivo
-  const precioEfectivo = [1071, 812, 994, 986, 1642];
-  const esExcepcion = [false, false, false, false, true];
+  const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'];
+  const precioMercado = [1700, 1780, 1900, 1960, 2076, 2100, 2150]; // estimado progresivo
+  const precioEfectivo = [1071, 812, 994, 986, 1642, 1000, 994];
+  const esExcepcion = [false, false, false, false, true, false, false];
 
   // ------ LINE CHART SVG ------
   const svg = document.getElementById('lineChart');
